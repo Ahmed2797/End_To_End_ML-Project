@@ -1,0 +1,24 @@
+[2025-09-15 11:13:40,995] 36 root - INFO - Creating Directory :src\FlightPrice_predictor ot the __init__.py
+[2025-09-15 11:13:40,998] 40 root - INFO - Creating src\FlightPrice_predictor\__init__.py is empty
+[2025-09-15 11:13:40,999] 36 root - INFO - Creating Directory :src\FlightPrice_predictor\components ot the __init__.py
+[2025-09-15 11:13:41,000] 40 root - INFO - Creating src\FlightPrice_predictor\components\__init__.py is empty
+[2025-09-15 11:13:41,000] 36 root - INFO - Creating Directory :src\FlightPrice_predictor\components ot the data_ingestion.py
+[2025-09-15 11:13:41,001] 40 root - INFO - Creating src\FlightPrice_predictor\components\data_ingestion.py is empty
+[2025-09-15 11:13:41,002] 36 root - INFO - Creating Directory :src\FlightPrice_predictor\components ot the data_transformation.py
+[2025-09-15 11:13:41,003] 40 root - INFO - Creating src\FlightPrice_predictor\components\data_transformation.py is empty
+[2025-09-15 11:13:41,004] 36 root - INFO - Creating Directory :src\FlightPrice_predictor\components ot the model_trainer.py
+[2025-09-15 11:13:41,005] 40 root - INFO - Creating src\FlightPrice_predictor\components\model_trainer.py is empty
+[2025-09-15 11:13:41,006] 36 root - INFO - Creating Directory :src\FlightPrice_predictor\pipeline ot the train_pipeline.py
+[2025-09-15 11:13:41,007] 40 root - INFO - Creating src\FlightPrice_predictor\pipeline\train_pipeline.py is empty
+[2025-09-15 11:13:41,007] 36 root - INFO - Creating Directory :src\FlightPrice_predictor\components ot the predict_pipeline.py
+[2025-09-15 11:13:41,008] 40 root - INFO - Creating src\FlightPrice_predictor\components\predict_pipeline.py is empty
+[2025-09-15 11:13:41,009] 36 root - INFO - Creating Directory :src\FlightPrice_predictor ot the exception.py
+[2025-09-15 11:13:41,010] 40 root - INFO - Creating src\FlightPrice_predictor\exception.py is empty
+[2025-09-15 11:13:41,011] 36 root - INFO - Creating Directory :src\FlightPrice_predictor ot the logger.py
+[2025-09-15 11:13:41,012] 40 root - INFO - Creating src\FlightPrice_predictor\logger.py is empty
+[2025-09-15 11:13:41,012] 36 root - INFO - Creating Directory :src\FlightPrice_predictor ot the utils.py
+[2025-09-15 11:13:41,013] 40 root - INFO - Creating src\FlightPrice_predictor\utils.py is empty
+[2025-09-15 11:13:41,014] 40 root - INFO - Creating app.py is empty
+[2025-09-15 11:13:41,016] 40 root - INFO - Creating main.py is empty
+[2025-09-15 11:13:41,016] 42 root - INFO - setup.py already exists
+[2025-09-15 11:13:41,016] 42 root - INFO - requirements.txt already exists
