@@ -1,0 +1,12 @@
+[33m87fef14[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: rebase (finish): returning to refs/heads/main
+[33m87fef14[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{1}: commit: 'dvc_commit
+[33mcc3400c[m HEAD@{2}: pull origin main --rebase (pick): Track dataset with DVC
+[33m5ed53da[m HEAD@{3}: pull origin main --rebase (pick): Initialize DVC
+[33m3183ae8[m HEAD@{4}: pull origin main --rebase (start): checkout 3183ae8fa542381cb539316660965bbf32d4bc71
+[33mf7f7dd3[m HEAD@{5}: commit: dvcPush
+[33m4cad63a[m HEAD@{6}: commit: Track dataset with DVC
+[33m9e654d2[m HEAD@{7}: commit: Initialize DVC
+[33md829ea7[m HEAD@{8}: commit: 'FirstPush
+[33mec1ec0b[m HEAD@{9}: pull: Fast-forward
+[33mcf39582[m HEAD@{10}: Branch: renamed refs/heads/main to refs/heads/main
+[33mcf39582[m HEAD@{12}: commit (initial): first commit
