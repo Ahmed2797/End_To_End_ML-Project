@@ -1,0 +1,5 @@
+setup.py
+FlightPrice_predictor.egg-info/PKG-INFO
+FlightPrice_predictor.egg-info/SOURCES.txt
+FlightPrice_predictor.egg-info/dependency_links.txt
+FlightPrice_predictor.egg-info/top_level.txt
