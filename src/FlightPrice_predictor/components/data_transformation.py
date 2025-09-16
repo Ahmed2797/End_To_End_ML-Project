@@ -1,0 +1,96 @@
+import os 
+import sys 
+import pickle
+import numpy as np
+import pandas as pd 
+from dataclasses import dataclass 
+from src.FlightPrice_predictor.exception import CustomException 
+from src.FlightPrice_predictor.logger import logging 
+from sklearn.model_selection import train_test_split 
+from sklearn.pipeline import Pipeline 
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer 
+from sklearn.preprocessing import StandardScaler,OneHotEncoder,LabelEncoder
+
+
+@dataclass 
+class DataTransformationConfig:
+    preprocessor_pkl = os.path.join('artifacts','preprocessor.pkl')
+
+class DataTransform:
+    def __init__(self):
+        self.data_transformation_config = DataTransformationConfig()
+
+    def get_data_transform(self, df: pd.DataFrame):
+
+        '''
+        this function is responsible for data transformation
+        '''
+        try:
+            numeric_columns = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
+            categorical_columns = df.select_dtypes(include=['object','category']).columns.tolist()
+
+            num_pipeline = Pipeline(steps=[
+                ('impute', SimpleImputer(strategy='median')),
+                ('scaler', StandardScaler())
+            ])
+
+            cat_pipeline = Pipeline(steps=[
+                ('impute', SimpleImputer(strategy='most_frequent')),
+                ('onehot', OneHotEncoder(handle_unknown='ignore')),
+                ('scaler', StandardScaler(with_mean=False))
+            ])
+
+            preprocessor = ColumnTransformer(transformers=[
+                ('num', num_pipeline, numeric_columns),
+                ('cat', cat_pipeline, categorical_columns)
+            ])
+
+            return preprocessor 
+
+        except Exception as e:
+            raise CustomException(e, sys)
+        
+    def init_data_transformation(self, train_path, test_path):
+        try:
+            train_df = pd.read_csv(train_path)
+            test_df = pd.read_csv(test_path)
+
+            target_column = 'price'
+            xtrain = train_df.drop(columns=[target_column], axis=1)
+            xtest = test_df.drop(columns=[target_column], axis=1)
+            ytrain = train_df[target_column]
+            ytest = test_df[target_column]
+
+            print("Train Columns:", xtrain.columns.tolist())
+            print("Test Columns:", xtest.columns.tolist())
+
+            preprocessor_obj = self.get_data_transform(train_df)
+
+            xtrain_data_arr = preprocessor_obj.fit_transform(xtrain)
+            xtest_data_arr = preprocessor_obj.transform(xtest)
+
+            train_arr = np.c_[xtrain_data_arr, np.array(ytrain)]
+            test_arr = np.c_[xtest_data_arr, np.array(ytest)]
+
+            save_object(
+                file_path=self.data_transformation_config.preprocessor_pkl,
+                obj=preprocessor_obj
+            )
+
+            return (
+                train_arr,
+                test_arr,
+                self.data_transformation_config.preprocessor_pkl
+            )
+        
+        except Exception as ex:
+            raise CustomException(ex, sys)
+
+
+def save_object(file_path, obj):
+    dir_name = os.path.dirname(file_path)
+    os.makedirs(dir_name, exist_ok=True)
+
+    with open(file_path, 'wb') as file_obj:
+        pickle.dump(obj, file_obj)
