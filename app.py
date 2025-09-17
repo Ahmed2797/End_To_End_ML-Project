@@ -14,7 +14,11 @@ if __name__== '__main__':
         train_data_path,test_data_path = dt_ingestion.init_data_ingestion()
 
         dt_preprocessor = DataTransform()
-        train_arr,test_arr = dt_preprocessor.init_data_transformation(train_data_path,test_data_path)
+        train_arr,test_arr,_ = dt_preprocessor.init_data_transformation(train_data_path,test_data_path)
+        print('<------------------->')
+        print("Train array shape:", train_arr.shape)
+        print("Test array shape:", test_arr.shape)
+        print("Preprocessor saved at:",_)
 
     except Exception as e:
         raise CustomException(e, sys)

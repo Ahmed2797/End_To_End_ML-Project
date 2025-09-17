@@ -3,10 +3,10 @@ import os
 import pickle
 from sklearn.preprocessing import LabelEncoder
 
-def label_encode_columns(columns: list):
-    df = pd.read_csv("artifacts/data.csv")
+def labelencoder(df,Columns):
+    #df = pd.read_csv("artifacts/data.csv")
 
-    for col in columns:
+    for col in Columns:
         le = LabelEncoder()
         df[col] = le.fit_transform(df[col].astype(str))
 

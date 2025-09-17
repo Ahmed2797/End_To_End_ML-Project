@@ -19,7 +19,7 @@ class Data_Ingestion:
     def init_data_ingestion(self):
         try:
             logging.info('Data Import')
-            df = pd.read_csv(r"C:\Users\tanvi\Downloads\Machine Learning\Dataset\airlines_flights_data.csv")
+            df = pd.read_csv(r"data/Flight_clean.csv")
 
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path),exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
@@ -29,6 +29,7 @@ class Data_Ingestion:
             test_data.to_csv(self.ingestion_config.test_data_path,index=False,header=True)
 
             logging.info('Data Import Succes')
+            print(df.head())
 
             return (
                 self.ingestion_config.train_data_path,

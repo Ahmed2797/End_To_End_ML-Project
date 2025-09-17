@@ -10,12 +10,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline 
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer 
-from sklearn.preprocessing import StandardScaler,OneHotEncoder,LabelEncoder
+from sklearn.preprocessing import StandardScaler,OneHotEncoder
 
 
 @dataclass 
 class DataTransformationConfig:
-    preprocessor_pkl = os.path.join('artifacts','preprocessor.pkl')
+    preprocessor_pkl:str = os.path.join('artifacts','preprocessor.pkl')
+
 
 class DataTransform:
     def __init__(self):
@@ -28,7 +29,7 @@ class DataTransform:
         '''
         try:
             numeric_columns = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
-            categorical_columns = df.select_dtypes(include=['object','category']).columns.tolist()
+            categorical_columns = df.select_dtypes(include=['object']).columns.tolist()
 
             num_pipeline = Pipeline(steps=[
                 ('impute', SimpleImputer(strategy='median')),
@@ -55,7 +56,7 @@ class DataTransform:
         try:
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
-
+            
             target_column = 'price'
             xtrain = train_df.drop(columns=[target_column], axis=1)
             xtest = test_df.drop(columns=[target_column], axis=1)
@@ -65,13 +66,39 @@ class DataTransform:
             print("Train Columns:", xtrain.columns.tolist())
             print("Test Columns:", xtest.columns.tolist())
 
-            preprocessor_obj = self.get_data_transform(train_df)
+            preprocessor_obj = self.get_data_transform(xtrain)
+            #print(preprocessor_obj)
 
             xtrain_data_arr = preprocessor_obj.fit_transform(xtrain)
             xtest_data_arr = preprocessor_obj.transform(xtest)
 
-            train_arr = np.c_[xtrain_data_arr, np.array(ytrain)]
-            test_arr = np.c_[xtest_data_arr, np.array(ytest)]
+            ytrain_array = np.array(ytrain).reshape(-1,1)
+            ytest_array = np.array(ytest).reshape(-1,1)
+
+            print("xtrain_data_arr shape:", xtrain_data_arr.shape)
+            print("xtest_data_arr shape:", xtest_data_arr.shape)
+            print("ytrain shape:", ytrain.shape)
+            print("ytest shape:", ytest.shape)
+            print('ytrain_array.shape:',ytrain_array.shape)
+            print('ytest_array.shape:',ytest_array.shape)
+          
+            # if len(xtrain_data_arr.shape) == 1:
+            #     xtrain_data_arr = xtrain_data_arr.reshape(-1, 1)
+            # elif xtrain_data_arr.shape[0] == 1:
+            #     xtrain_data_arr = xtrain_data_arr.T
+
+            # if len(xtest_data_arr.shape) == 1:
+            #     xtest_data_arr = xtest_data_arr.reshape(-1, 1)
+            # elif xtest_data_arr.shape[0] == 1:
+            #     xtest_data_arr = xtest_data_arr.T
+
+            if hasattr(xtrain_data_arr, 'toarray'):
+                xtrain_data_arr = xtrain_data_arr.toarray()
+            if hasattr(xtest_data_arr, 'toarray'):
+                xtest_data_arr = xtest_data_arr.toarray()
+                        
+            train_arr = np.c_[xtrain_data_arr,ytrain_array]
+            test_arr = np.c_[xtest_data_arr,ytest_array]
 
             save_object(
                 file_path=self.data_transformation_config.preprocessor_pkl,
