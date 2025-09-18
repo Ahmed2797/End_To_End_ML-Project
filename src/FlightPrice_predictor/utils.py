@@ -56,6 +56,8 @@ def evalute_metries(true,pred):
     rmse = root_mean_squared_error(true,pred)
     return r2,mae,rmse
 
+
+
 from sklearn.metrics import r2_score
 
 def adjusted_r2(true,pred,x):

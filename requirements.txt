@@ -5,5 +5,7 @@ dvc
 setuptools 
 xgboost 
 catboost 
+mlflow 
+dogshub
 
 

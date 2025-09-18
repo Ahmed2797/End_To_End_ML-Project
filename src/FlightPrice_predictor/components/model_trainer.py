@@ -1,5 +1,9 @@
 import os 
 import sys 
+import mlflow
+import dagshub
+import mlflow.sklearn
+from urllib.parse import urlparse
 import pandas as pd 
 import numpy as np
 from dataclasses import dataclass 
@@ -98,9 +102,31 @@ class Model_Trainer:
             best_model_name = max(model_report,key=model_report.get)
             best_model_score = model_report[best_model_name]
             best_model = models[best_model_name]
-
             print('Best_model Name:',best_model_name)
             print("Best_model_score:",best_model_score)
+
+            best_param = params[best_model_name]
+            print('Best params:',best_param)
+
+            mlflow.set_registry_uri('https://dagshub.com/Ahmed2797/End_To_End_ML-Project.mlflow')
+            tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+            dagshub.init(repo_owner='Ahmed2797', repo_name='End_To_End_ML-Project', mlflow=True)
+
+            with mlflow.start_run():
+                pred = best_model.predict(xtest)
+                r2,mae,rmse = evalute_metries(ytest,pred) 
+
+                mlflow.log_params(best_param)
+
+                mlflow.log_metric("rmse", rmse)
+                mlflow.log_metric("r2", r2)
+                mlflow.log_metric("mae", mae)
+
+                if tracking_url_type_store != "file":
+                    mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model_name)
+                else:
+                    mlflow.sklearn.log_model(best_model, "model")
+
 
             if best_model_score < 0.6:
                 logging.info('Best model doesnot found')
