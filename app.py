@@ -7,6 +7,9 @@ from src.FlightPrice_predictor.components.data_transformation import DataTransfo
 from src.FlightPrice_predictor.components.model_trainer import Model_Trainer
 
 
+from src.FlightPrice_predictor.components.expirement_transform import Data_Transform
+
+
 
 if __name__== '__main__':
     logging.info('logger.py Excuation Started')
@@ -16,6 +19,10 @@ if __name__== '__main__':
 
         dt_preprocessor = DataTransform()
         train_arr,test_arr,_ = dt_preprocessor.init_data_transformation(train_data_path,test_data_path)
+
+        # label_excepirement = Data_Transform()
+        # train_arr,test_arr,_ = label_excepirement.init_dt_tf(train_data_path,test_data_path)
+
         print('<------------------->')
         print("Train array shape:", train_arr.shape)
         print("Test array shape:", test_arr.shape)
