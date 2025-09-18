@@ -135,7 +135,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-artifacts/best_model.pkl
+artifacts/best_model.pkl/
 data/
 .env
 .envrc
