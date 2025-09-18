@@ -1,7 +1,9 @@
-# python setup.py install
 numpy 
 pandas 
 scikit-learn
 dvc
-setuptools
+setuptools 
+xgboost 
+catboost 
+
 

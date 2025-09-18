@@ -63,8 +63,8 @@ class DataTransform:
             ytrain = train_df[target_column]
             ytest = test_df[target_column]
 
-            print("Train Columns:", xtrain.columns.tolist())
-            print("Test Columns:", xtest.columns.tolist())
+            # print("Train Columns:", xtrain.columns.tolist())
+            # print("Test Columns:", xtest.columns.tolist())
 
             preprocessor_obj = self.get_data_transform(xtrain)
             #print(preprocessor_obj)
@@ -72,33 +72,18 @@ class DataTransform:
             xtrain_data_arr = preprocessor_obj.fit_transform(xtrain)
             xtest_data_arr = preprocessor_obj.transform(xtest)
 
-            ytrain_array = np.array(ytrain).reshape(-1,1)
-            ytest_array = np.array(ytest).reshape(-1,1)
+            # ytrain_array = np.array(ytrain).reshape(-1,1)
+            # ytest_array = np.array(ytest).reshape(-1,1)
+            ytrain_array = np.array(ytrain)
+            ytest_array = np.array(ytest)
 
-            print("xtrain_data_arr shape:", xtrain_data_arr.shape)
-            print("xtest_data_arr shape:", xtest_data_arr.shape)
-            print("ytrain shape:", ytrain.shape)
-            print("ytest shape:", ytest.shape)
-            print('ytrain_array.shape:',ytrain_array.shape)
-            print('ytest_array.shape:',ytest_array.shape)
-          
-            # if len(xtrain_data_arr.shape) == 1:
-            #     xtrain_data_arr = xtrain_data_arr.reshape(-1, 1)
-            # elif xtrain_data_arr.shape[0] == 1:
-            #     xtrain_data_arr = xtrain_data_arr.T
-
-            # if len(xtest_data_arr.shape) == 1:
-            #     xtest_data_arr = xtest_data_arr.reshape(-1, 1)
-            # elif xtest_data_arr.shape[0] == 1:
-            #     xtest_data_arr = xtest_data_arr.T
-
-            if hasattr(xtrain_data_arr, 'toarray'):
-                xtrain_data_arr = xtrain_data_arr.toarray()
-            if hasattr(xtest_data_arr, 'toarray'):
-                xtest_data_arr = xtest_data_arr.toarray()
+            # if hasattr(xtrain_data_arr, 'toarray'):
+            #     xtrain_data_arr = xtrain_data_arr.toarray()
+            # if hasattr(xtest_data_arr, 'toarray'):
+            #     xtest_data_arr = xtest_data_arr.toarray()
                         
-            train_arr = np.c_[xtrain_data_arr,ytrain_array]
-            test_arr = np.c_[xtest_data_arr,ytest_array]
+            train_arr = np.c_[xtrain_data_arr.toarray(),ytrain_array]
+            test_arr = np.c_[xtest_data_arr.toarray(),ytest_array]
 
             save_object(
                 file_path=self.data_transformation_config.preprocessor_pkl,

@@ -4,6 +4,7 @@ from src.FlightPrice_predictor.logger import logging
 from src.FlightPrice_predictor.exception import CustomException
 from src.FlightPrice_predictor.components.data_ingestion import Data_Ingestion
 from src.FlightPrice_predictor.components.data_transformation import DataTransform
+from src.FlightPrice_predictor.components.model_trainer import Model_Trainer
 
 
 
@@ -19,6 +20,9 @@ if __name__== '__main__':
         print("Train array shape:", train_arr.shape)
         print("Test array shape:", test_arr.shape)
         print("Preprocessor saved at:",_)
+
+        model_train = Model_Trainer()
+        print(model_train.init_model_train(train_arr,test_arr))
 
     except Exception as e:
         raise CustomException(e, sys)
